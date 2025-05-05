@@ -1,10 +1,14 @@
+import { useSelector } from "react-redux";
 import { products } from "@/data/products";
 import { ProductCard } from "./ProductCard";
 
 import "./ProductList.scss";
+import { selectProductsItems } from "@/features/selectors";
 
+export const ProductList = () => {
 
-export const ProductList: React.FC = () => {
+  const products = useSelector(selectProductsItems);
+
   return (
     <div className="max-w-2xl mx-auto border p-6 rounded-lg bg-white">
       <h1 className="fish-store-header text-5xl font-bold text-center mb-2 tracking-wide">

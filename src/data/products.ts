@@ -97,4 +97,4 @@ export const products: Product[] = [
         price: 18.49,
         status: "available",
       },
-  ];
+];

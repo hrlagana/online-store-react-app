@@ -9,7 +9,6 @@ export type CartState = {
     items: CartItem[];
 };
 
-
 export interface Product {
     id: string;
     title: string;

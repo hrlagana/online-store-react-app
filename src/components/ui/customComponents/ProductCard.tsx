@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { Product } from "@/features/typings";
 import { AppDispatch } from "@/store/store";
 import { addToCart } from "@/store/cartSlice";
-import { formatPrice } from "@/utils/cartUtil";
+import { formatPrice } from "@/utils/utils";
 import "./ProductCard.scss";
 
 type Props = {

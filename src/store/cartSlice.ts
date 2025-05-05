@@ -4,31 +4,50 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 const loadFromLocalStorage = (): CartItem[] => {
     const data = localStorage.getItem("cart");
     return data ? JSON.parse(data) : [];
+  };
+  
+const saveToLocalStorage = (items: CartItem[]) => {
+    localStorage.setItem("cart", JSON.stringify(items));
 };
 
 const initialState: CartState = {
   items: loadFromLocalStorage(),
 };
-
 export const cartSlice = createSlice({
-  name: "cart",
-  initialState,
-  reducers: {
-    addToCart: (state, action: PayloadAction<Product>) => {
-      const existing = state.items.find(
-        (item) => item.product.id === action.payload.id
-      );
+    name: "cart",
+    initialState,
+    reducers: {
+      addToCart: (state, action: PayloadAction<Product>) => {
+        const product = action.payload;
+  
+        if (product.status === "unavailable") return;
+  
+        const existing = state.items.find(
+          (item) => item.product.id === product.id
+        );
+  
+        if (existing) {
+          existing.quantity += 1;
+        } else {
+          state.items.push({ product, quantity: 1 });
+        }
+  
+        saveToLocalStorage(state.items);
+      },
 
-      if (existing) {
-        existing.quantity += 1;
-      } else {
-        state.items.push({ product: action.payload, quantity: 1 });
-      }
+      syncProductChanges: (state, action: PayloadAction<Product>) => {
+        const updatedProduct = action.payload;
+        const item = state.items.find((i) => i.product.id === updatedProduct.id);
+        if (item) {
+          item.product = updatedProduct;
+        }
+  
+        state.items = state.items.filter((i) => i.product.status === "available");
+        saveToLocalStorage(state.items);
+      },
 
-      localStorage.setItem("cart", JSON.stringify(state.items));
     },
-  },
 });
-
-export const { addToCart } = cartSlice.actions;
-export default cartSlice.reducer;
+  
+  export const { addToCart, syncProductChanges } = cartSlice.actions;
+  export default cartSlice.reducer;
