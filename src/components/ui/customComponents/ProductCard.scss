@@ -1,0 +1,21 @@
+.product-card {
+    position: relative;
+
+    .product-title{
+        font-family: "Malvery", Arial, Helvetica, sans-serif;
+    }
+  
+    .unavailable-badge {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: rotate(-5deg);
+      font-family: "Malvery", Arial, Helvetica, sans-serif;
+      z-index: 10;
+      padding: 0.25rem 0.75rem;
+      font-weight: bold;
+      pointer-events: none;
+      border: solid red 1px;
+      width: fit-content;
+    }
+  }

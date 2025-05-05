@@ -4,6 +4,8 @@ import { Provider } from "react-redux";
 import { store } from "./store/store";
 
 import './index.css'
+import './styles/fonts.scss';
+
 import App from './App.tsx'
 
 createRoot(document.getElementById('root')!).render(
